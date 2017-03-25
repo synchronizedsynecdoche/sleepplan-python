@@ -5,54 +5,98 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace sleepplan {
-    class Program {
+    class sleepplan {
 
-        static void GenerateWakeupTimes(ref DateTime[] wakeupTimes, ref int offset) {
+        public DateTime[] wakeupTimes = new DateTime[6];
+        public String response = null;
+        public int offset = 15;
+
+        public void WakeupTimes() { // Generate & Print Wakeup Times
+            ConsoleColor oldColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("If you are going to bed now, wake up at");
             for (int i = 0; i < wakeupTimes.Length; i++) {
                 wakeupTimes[i] = DateTime.Now.AddMinutes(offset + ((i + 1) * 90));
-            }
-        }
-
-        static void PrintWakeupTimes(ref DateTime[] wakeupTimes) {
-            for (int i = 0; i < wakeupTimes.Length; i++) {
-                ConsoleColor oldColor = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.Magenta;
                 double hoursOfSleep = (i + 1) * 1.5;
-                Console.Write("\n{0:t} for {1} hours of sleep", wakeupTimes[i], hoursOfSleep);
-                Console.ForegroundColor = oldColor;
+                Console.WriteLine("{0:t} for {1} hours of sleep", wakeupTimes[i], hoursOfSleep);
             }
+            Console.ForegroundColor = oldColor;
         }
 
-        static void ParseOffset(ref DateTime[] wakeupTimes, ref String response, ref int offset) {
-            Console.WriteLine("\nIf you want to change the fall-asleep offset from 15 minutes, please type an integer.");
-            Console.WriteLine("Otherwise, hit any key to exit.");
+        public void ChangeOffset() { // Change Offset
+            Console.WriteLine("\nPlease type an integer to change the fall asleep offset.");
             response = Console.ReadLine();
             int parseSuccess;
             bool endTest = int.TryParse(response, out parseSuccess);
             if (endTest) {
                 offset = Int32.Parse(response);
-                GenerateWakeupTimes(ref wakeupTimes, ref offset);
-                PrintWakeupTimes(ref wakeupTimes);
-                ParseOffset(ref wakeupTimes, ref response, ref offset);
             } else {
-                Environment.Exit(0);
+                Console.WriteLine("Offset was not changed because input was not an integer.");
+                return;
+            }
+        }
+
+        public void Menu (ref String response) {
+
+            if (response.Contains("o")) {
+                response = response.Replace("o", "");
+                ChangeOffset();
+            }
+            response = response.Replace("-", "");
+            switch (response) {
+                case "l":
+                    Console.WriteLine("Please insert a bedtime. Format: 12:30 AM");
+                    DateTime bedtime = DateTime.Parse(Console.ReadLine());
+                    ConsoleColor oldColor = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("If you are going to bed at {0:t}, wake up at", bedtime);
+                    for (int i = 0; i < wakeupTimes.Length; i++) {
+                        wakeupTimes[i] = bedtime.AddMinutes(offset + ((i + 1) * 90));
+                        double hoursOfSleep = (i + 1) * 1.5;
+                        Console.WriteLine("{0:t} for {1} hours of sleep", wakeupTimes[i], hoursOfSleep);
+                    }
+                    Console.ForegroundColor = oldColor;
+                    Console.ReadLine();
+                    break;
+                case "b":
+                    Console.WriteLine("Please insert a wakeup time. Format: 12:30 AM");
+                    DateTime wakeupTime = DateTime.Parse(Console.ReadLine());
+                    oldColor = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("If you are waking up at {0:t}, go to bed at", wakeupTime);
+                    for (int i = 0; i < wakeupTimes.Length; i++) {
+                        wakeupTimes[i] = wakeupTime.AddMinutes(-offset - ((i + 1) * 90));
+                        double hoursOfSleep = (i + 1) * 1.5;
+                        Console.WriteLine("{0:t} for {1} hours of sleep", wakeupTimes[i], hoursOfSleep);
+                    }
+                    Console.ForegroundColor = oldColor;
+                    Console.ReadLine();
+                    break;
+                case "":
+                    WakeupTimes();
+                    Console.ReadLine();
+                    break;
             }
         }
 
         static void Main(string[] args) {
-
-            DateTime[] wakeupTimes = new DateTime[6];
-            String response = "";
-            int offset = 15;
+            sleepplan sleepplan = new sleepplan();
             Console.ForegroundColor = ConsoleColor.Cyan;
-
             Console.Title = "sleepplan";
             Console.WriteLine("Welcome to sleepplan.");
-            GenerateWakeupTimes(ref wakeupTimes, ref offset);
-            Console.WriteLine("The current time is {0:t}", DateTime.Now);
-            Console.Write("If you are going to bed now, wake up at");
-            PrintWakeupTimes(ref wakeupTimes);
-            ParseOffset(ref wakeupTimes, ref response, ref offset);
+            Console.WriteLine("The current time is {0:t}\n", DateTime.Now);
+            if (args.Length == 0) {
+                Console.WriteLine("Press enter to generate wakeup times.");
+                Console.WriteLine(@"To change fall asleep offset, use ""o"".");
+                Console.WriteLine(@"If you are going to bed later, use ""l"".");
+                Console.WriteLine(@"If you need to get up at a certain time, use ""b"" to find bedtimes.");
+                Console.WriteLine(@"These can also be passed as arguments.");
+                String response = Console.ReadLine();
+                sleepplan.Menu(ref response);
+            } else {
+                String response = string.Concat(args);
+                sleepplan.Menu(ref response);
+            }
         }
     }
 }
