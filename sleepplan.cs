@@ -17,12 +17,12 @@ namespace sleepplan {
         public void WakeupTimes() { // Generate & Print Wakeup Times
             ConsoleColor oldColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("If you are going to bed now, wake up at");
-            for (int i = 0; i < wakeupTimes.Length; i++) {
-                wakeupTimes[i] = DateTime.Now.AddMinutes(offset + ((i + 1) * 90));
-                double hoursOfSleep = (i + 1) * 1.5;
-                Console.WriteLine("{0:t} for {1} hours of sleep", wakeupTimes[i], hoursOfSleep);
-            }
+                Console.WriteLine("\nIf you are going to bed now, wake up at");
+                for (int i = 0; i < wakeupTimes.Length; i++) {
+                    wakeupTimes[i] = DateTime.Now.AddMinutes(offset + ((i + 1) * 90));
+                    double hoursOfSleep = (i + 1) * 1.5;
+                    Console.WriteLine("{0:t} for {1} hours of sleep", wakeupTimes[i], hoursOfSleep);
+                }
             Console.ForegroundColor = oldColor;
         }
 
@@ -49,7 +49,7 @@ namespace sleepplan {
 
             //Menu Options
             switch (response) {
-                case "l":
+                case "l": // Generate wakeup times from a certain bedtim
                     Console.WriteLine("Please insert a bedtime. Format: 12:30 AM");
                     response = Console.ReadLine();
                     endTest = DateTime.TryParse(response, out bedtime);
@@ -57,27 +57,25 @@ namespace sleepplan {
                         DateTime bedtime = DateTime.Parse(response);
                     } else {
                         Console.WriteLine("Bedtime was not set because format was incorrect.");
-                        Console.WriteLine();
-                        Console.Write(">");
+                        Console.Write("\n>");
                         response = Console.ReadLine();
                         Menu(ref response);
                         return;
                     }
                     ConsoleColor oldColor = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine("If you are going to bed at {0:t}, wake up at", bedtime);
-                    for (int i = 0; i < wakeupTimes.Length; i++) {
-                        wakeupTimes[i] = bedtime.AddMinutes(offset + ((i + 1) * 90));
-                        double hoursOfSleep = (i + 1) * 1.5;
-                        Console.WriteLine("{0:t} for {1} hours of sleep", wakeupTimes[i], hoursOfSleep);
-                    }
+                        Console.WriteLine("\nIf you are going to bed at {0:t}, wake up at", bedtime);
+                        for (int i = 0; i < wakeupTimes.Length; i++) {
+                            wakeupTimes[i] = bedtime.AddMinutes(offset + ((i + 1) * 90));
+                            double hoursOfSleep = (i + 1) * 1.5;
+                            Console.WriteLine("{0:t} for {1} hours of sleep", wakeupTimes[i], hoursOfSleep);
+                        }
                     Console.ForegroundColor = oldColor;
-                    Console.WriteLine();
-                    Console.Write(">");
+                    Console.Write("\n>");
                     response = Console.ReadLine();
                     Menu(ref response);
                     return;
-                case "b":
+                case "b": // Generate bedtimes from a certain wakeup time
                     Console.WriteLine("Please insert a wakeup time. Format: 12:30 AM");
                     response = Console.ReadLine();
                     DateTime wakeupTime = new DateTime();
@@ -86,41 +84,37 @@ namespace sleepplan {
                         wakeupTime = DateTime.Parse(response);
                     } else {
                         Console.WriteLine("Wakeup time was not set because format was incorrect.");
-                        Console.WriteLine();
-                        Console.Write(">");
+                        Console.Write("\n>");
                         response = Console.ReadLine();
                         Menu(ref response);
                         return;
                     }
                     oldColor = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine("If you are waking up at {0:t}, go to bed at", wakeupTime);
-                    for (int i = 0; i < wakeupTimes.Length; i++) {
-                        wakeupTimes[i] = wakeupTime.AddMinutes(-offset - ((i + 1) * 90));
-                        double hoursOfSleep = (i + 1) * 1.5;
-                        Console.WriteLine("{0:t} for {1} hours of sleep", wakeupTimes[i], hoursOfSleep);
-                    }
+                        Console.WriteLine("\nIf you are waking up at {0:t}, go to bed at", wakeupTime);
+                        for (int i = 0; i < wakeupTimes.Length; i++) {
+                            wakeupTimes[i] = wakeupTime.AddMinutes(-offset - ((i + 1) * 90));
+                            double hoursOfSleep = (i + 1) * 1.5;
+                            Console.WriteLine("{0:t} for {1} hours of sleep", wakeupTimes[i], hoursOfSleep);
+                        }
                     Console.ForegroundColor = oldColor;
-                    Console.WriteLine();
-                    Console.Write(">");
+                    Console.Write("\n>");
                     response = Console.ReadLine();
                     Menu(ref response);
                     return;
-                case "":
+                case "": // Generate Wakeup times for now
                     WakeupTimes();
-                    Console.WriteLine();
-                    Console.Write(">");
+                    Console.Write("\n>");
                     response = Console.ReadLine();
                     Menu(ref response);
                     return;
                 case "h":
-                    Console.WriteLine(@"To change fall asleep offset, use ""o"".");
-                    Console.WriteLine(@"If you are going to bed later, use ""l"".");
-                    Console.WriteLine(@"If you need to get up at a certain time, use ""b"" to find bedtimes.");
-                    Console.WriteLine(@"These can also be passed as arguments.");
-                    Console.WriteLine(@"Finally, use ""e"" to exit.");
-                    Console.WriteLine();
-                    Console.Write(">");
+                    Console.WriteLine("\nTo change fall asleep offset, use \"o\".");
+                    Console.WriteLine("If you are going to bed later, use \"l\".");
+                    Console.WriteLine("If you need to get up at a certain time, use \"b\" to find bedtimes.");
+                    Console.WriteLine("These can also be passed as arguments.");
+                    Console.WriteLine("Finally, use \"e\" to exit.");
+                    Console.Write("\n>");
                     response = Console.ReadLine();
                     Menu(ref response);
                     return;
@@ -129,8 +123,7 @@ namespace sleepplan {
                     return;
             }
             Console.WriteLine("Invalid selection, please try again");
-            Console.WriteLine();
-            Console.Write(">");
+            Console.Write("\n>");
             response = Console.ReadLine();
             Menu(ref response);
     }
@@ -142,9 +135,9 @@ namespace sleepplan {
             Console.WriteLine("Welcome to sleepplan.");
             Console.WriteLine("The current time is {0:t}", DateTime.Now);
             if (args.Length == 0) {
-                Console.WriteLine("To view help, type \"h\"\n");
+                Console.WriteLine("To view help, type \"h\"");
                 sleepplan.WakeupTimes();
-                Console.Write(">");
+                Console.Write("\n>");
                 String response = Console.ReadLine();
                 sleepplan.Menu(ref response);
             } else {
