@@ -1,4 +1,5 @@
 #have these be parameters passed in the CLI but that's a nightmare in python
+#maybe create a datatype for date?
 debugBool = True
 
 def debug(arg):
@@ -15,3 +16,10 @@ startMin = startArr[1]
 debug("startHour: {} , startMin: {}".format(startHour,startMin))
 
 
+def endTime(startPoint, timeToEnd):
+    if( not ((isinstance(startPoint, str)) and (isinstance(timeToEnd, str )))):
+        raise Exception("Passed invalid datatypes for time")
+
+    startPointArr = startPoint.split(":")
+    startPointHour = startPointArr[0]
+    startPointMin = startPointArr[1]
