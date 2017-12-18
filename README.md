@@ -1,7 +1,7 @@
 # sleepplan
-Sleep Cycle Planner written in C#
+Sleep Cycle Planner written in ~~C#~~ Python 3
 
-This sleep cycle planner is an exercise for me to learn C# and OOP programming
+This sleep cycle planner is an exercise for me to ~~learn C# and OOP programming~~ re-familiarize myself with Python
 
 Current features:
 - Calculate optimal wake-up times for current time
@@ -11,7 +11,7 @@ Current features:
 
 Usage:
 
-After running sleepplan.exe, optimal wakeup times will be generated with a default fall-asleep offset of 15 minutes.
+After running sleepplan~~.exe~~, optimal wakeup times will be generated with a default fall-asleep offset of 15 minutes.
 Then, you can enter in any number of options:
 - "h" or "-h" (when entered in as an argument) to show command help.
 - "o" or "-o" to change the fall asleep offset. 
