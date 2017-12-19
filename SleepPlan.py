@@ -31,7 +31,11 @@ def endTime(startPoint, timeToEnd): #24 hour time
     hourDiff = abs(timeToEndHour - startPointHour)
     minDiff = timeToEndMin - startPointMin #make sure to do mod arithmetic for this and add to hour!
 
-    if(timeToEndMin + startPointMin  > 60):
+    if(timeToEndMin + startPointMin  >= 60):
         temp = timeToEndMin + startPointMin
-        hourDiff += int(temp / 60)
-        minDiff = (timeToEndMin + startPointMin) % 60 # I feel like this is wrong
+        hourDiff -= int(temp / 60)
+        minDiff = abs(timeToEndMin - startPointMin) # I feel like this is wrong
+
+#need to handle cases like this:
+#5:50
+#7:40
