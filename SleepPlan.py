@@ -16,10 +16,10 @@ startMin = startArr[1]
 debug("startHour: {} , startMin: {}".format(startHour,startMin))
 
 
-def endTime(startPoint, timeToEnd):
+def endTime(startPoint, timeToEnd): #24 hour time
     if( not ((isinstance(startPoint, str)) and (isinstance(timeToEnd, str )))):
         raise Exception("Passed invalid datatypes for time")
 
     startPointArr = startPoint.split(":")
-    startPointHour = startPointArr[0]
-    startPointMin = startPointArr[1]
+    startPointHour = int(startPointArr[0])
+    startPointMin = int(startPointArr[1])
