@@ -23,3 +23,15 @@ def endTime(startPoint, timeToEnd): #24 hour time
     startPointArr = startPoint.split(":")
     startPointHour = int(startPointArr[0])
     startPointMin = int(startPointArr[1])
+
+    timeToEndArr = timeToEnd.split(":")
+    timeToEndHour = int(timeToEndArr[0])
+    timeToEndMin = int(timeToEndArr[1])
+
+    hourDiff = abs(timeToEndHour - startPointHour)
+    minDiff = timeToEndMin - startPointMin #make sure to do mod arithmetic for this and add to hour!
+
+    if(timeToEndMin + startPointMin  > 60):
+        temp = timeToEndMin + startPointMin
+        hourDiff += int(temp / 60)
+        minDiff = (timeToEndMin + startPointMin) % 60 # I feel like this is wrong
