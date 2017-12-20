@@ -43,6 +43,8 @@ def endTime(startPoint, timeToEnd): #24 hour time
         hourDiff -= int(temp / 60)
         minDiff = timeToEndMin + (60 - startPointMin)  # should be fixed
 
+    return (startPointHour+hourDiff) +":"+(startPointMin+minDiff)
+    
 #need to handle cases like this:
 #5:50
 #7:40
