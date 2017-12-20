@@ -28,6 +28,13 @@ def endTime(startPoint, timeToEnd): #24 hour time
     timeToEndHour = int(timeToEndArr[0])
     timeToEndMin = int(timeToEndArr[1])
 
+    if(startPointHour > timeToEndHour):
+        raise Exception("Over 24 hours")
+
+    if(startPointHour == timeToEndMin and startPointMin >= timeToEndMin):
+        raise Exception("Over 24 hours")
+
+
     hourDiff = abs(timeToEndHour - startPointHour)
     minDiff = timeToEndMin - startPointMin #make sure to do mod arithmetic for this and add to hour!
 
