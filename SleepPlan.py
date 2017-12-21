@@ -43,7 +43,7 @@ def endTime(startPoint, timeToEnd): #24 hour time
         hourDiff -= int(temp / 60)
         minDiff = timeToEndMin + (60 - startPointMin)  # should be fixed
 
-    return (startPointHour+hourDiff) +":"+(startPointMin+minDiff)
+    return str(startPointHour+hourDiff) +":"+str(startPointMin+minDiff)
 
 #testing
 userInA = input("Enter time 1\n>>>")
