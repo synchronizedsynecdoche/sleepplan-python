@@ -16,7 +16,7 @@ startMin = startArr[1]
 debug("startHour: {} , startMin: {}".format(startHour,startMin))
 
 
-def endTime(startPoint, timeToEnd): #24 hour time
+def timeElapsed(startPoint, timeToEnd): #24 hour time
     if( not ((isinstance(startPoint, str)) and (isinstance(timeToEnd, str )))):
         raise Exception("Passed invalid datatypes for time")
 
@@ -38,18 +38,21 @@ def endTime(startPoint, timeToEnd): #24 hour time
     hourDiff = abs(timeToEndHour - startPointHour)
     minDiff = timeToEndMin - startPointMin #make sure to do mod arithmetic for this and add to hour!
 
+    if(startPointHour+1 == timeToEndHour ): #edge case
+        return (60 - startPointMin) + timeToEndMin
+
     if(timeToEndMin + startPointMin  >= 60):
         temp = timeToEndMin + startPointMin
-        hourDiff -= int(temp / 60)
+        hourDiff += int(temp / 60)
         minDiff = timeToEndMin + (60 - startPointMin)  # should be fixed
 
-    return str(startPointHour+hourDiff) +":"+str(startPointMin+minDiff)
+    return str(startPointHour+hourDiff) +":"+str(startPointMin+minDiff) 
 
 #testing
 userInA = input("Enter time 1\n>>>")
 userInB = input("Enter time 2\n>>>")
 
-print(endTime(userInA, userInB))
+print(timeElapsed(userInA, userInB))
 
 #need to handle cases like this:
 #5:50
