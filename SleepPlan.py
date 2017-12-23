@@ -72,12 +72,15 @@ class Time(object):
         self.hour = int(timeArr[1])
     def __add__(self, other):
 
-        self.hour += other.hour
-
-        #figure out what I'm even trying to do later
+        #
         try:
-            timeElapsed(self,other)
-        except Exception:
+            #replace timeElapsed(self, other) with a named variable so it doesn't have to be recomputed
+            self.hour += timeElapsed(self, other).hour
+
+            if(self.min + timeElapsed(self, other).min > 60):
+                self.min += timeElapsed(self, other).min - 60
+                self.hour += 1
+        except Exception: #for when self > other
 
 
     def toString(self):
