@@ -17,16 +17,15 @@ def debug(arg):
 
 
 def timeElapsed(startPoint, timeToEnd): #24 hour time because it is superior
-    if( not ((isinstance(startPoint, str)) and (isinstance(timeToEnd, str )))):
+    if( not ((isinstance(startPoint, Time)) and (isinstance(timeToEnd, Time )))):
         raise Exception("Passed invalid datatypes for time")
 
-    startPointArr = startPoint.split(":")
-    startPointHour = int(startPointArr[0])
-    startPointMin = int(startPointArr[1])
 
-    timeToEndArr = timeToEnd.split(":")
-    timeToEndHour = int(timeToEndArr[0])
-    timeToEndMin = int(timeToEndArr[1])
+    startPointHour = startPoint.hour
+    startPointMin = startPoint.min
+
+    timeToEndHour = timeToEnd.hour
+    timeToEndMin = startPoint.min
 
     if(startPointHour > timeToEndHour):
         raise Exception("Over 24 hours")
@@ -46,7 +45,7 @@ def timeElapsed(startPoint, timeToEnd): #24 hour time because it is superior
         hourDiff += int(temp / 60)
         minDiff = timeToEndMin + (60 - startPointMin)  # should be fixed
 
-    return str(hourDiff) +":"+str(minDiff)
+    return Time(str(hourDiff) +":"+str(minDiff))
 
 #testing
 #userInA = input("Enter time 1\n>>>")
@@ -74,7 +73,13 @@ class Time(object):
     def __add__(self, other):
 
         self.hour += other.hour
-        #reuse code
+
+        #figure out what I'm even trying to do later
+        try:
+            timeElapsed(self,other)
+        except Exception:
+
+
     def toString(self):
         return str(self.min) + ":" + str(self.hour)
 
