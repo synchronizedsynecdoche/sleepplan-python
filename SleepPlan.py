@@ -61,18 +61,20 @@ def timeElapsed(startPoint, timeToEnd): #24 hour time because it is superior
 
 class Time(object):
     #class for overloading addition
-
+    min = -1
+    hour = -1
     def __init__(self,time):
 
         if (not isinstance(time, str)):
             raise Exception("Passed invalid datatypes for Time constructor")
 
         timeArr = time.split(":")
-        min = int(timeArr[0])
-        hour = int(timeArr[1])
+        self.min = int(timeArr[0])
+        self.hour = int(timeArr[1])
     def __add__(self, other):
 
         self.hour += other.hour
-        # add minutes
+        #reuse code
     def toString(self):
+        return str(self.min) + ":" + str(self.hour)
 
