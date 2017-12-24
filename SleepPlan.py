@@ -30,8 +30,8 @@ def timeElapsed(startPoint, timeToEnd): #24 hour time because it is superior
     if(startPointHour > timeToEndHour):
         raise Exception("Over 24 hours")
 
-    if(startPointHour == timeToEndHour and startPointMin >= timeToEndMin):
-        raise Exception("Over 24 hours")
+#    if(startPointHour == timeToEndHour and startPointMin >= timeToEndMin):
+ #       raise Exception("Over 24 hours")
 
 
     hourDiff = abs(timeToEndHour - startPointHour)
@@ -70,19 +70,8 @@ class Time(object):
         timeArr = time.split(":")
         self.min = int(timeArr[0])
         self.hour = int(timeArr[1])
-    def __add__(self, other):
-
-        #
-        try:
-            #replace timeElapsed(self, other) with a named variable so it doesn't have to be recomputed
-            self.hour += timeElapsed(self, other).hour
-
-            if(self.min + timeElapsed(self, other).min > 60):
-                self.min += timeElapsed(self, other).min - 60
-                self.hour += 1
-        except Exception: #for when self > other
-
-
     def toString(self):
         return str(self.min) + ":" + str(self.hour)
+
+
 
