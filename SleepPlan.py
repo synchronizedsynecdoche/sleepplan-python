@@ -68,8 +68,8 @@ class Time(object):
             raise Exception("Passed invalid datatypes for Time constructor")
 
         timeArr = time.split(":")
-        self.min = int(timeArr[0])
-        self.hour = int(timeArr[1])
+        self.hour = int(timeArr[0])
+        self.min = int(timeArr[1])
 
     def add(self, other):
 
@@ -83,13 +83,13 @@ class Time(object):
             else:
                 self.min += elapsedObj.min
 
-            return Time(str(self.hour) +":" + str(self.min))
+            #return Time(str(self.hour) +":" + str(self.min))
     def toString(self):
         return str(self.hour) + ":" + str(self.min)
 
 test = Time("6:00")
 
-test = test.add("7:15")
+test.add("7:15")
 
 print(test.toString()) #fixed
 
