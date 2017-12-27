@@ -87,9 +87,17 @@ class Time(object):
     def toString(self):
         return str(self.hour) + ":" + str(self.min)
 
+    def sub(self,other):
+        elapsedObj = Time(other)
+        self.hour -= elapsedObj.hour
+
+        if (self.min + elapsedObj.min < 60):
+            self.min -= 60  - elapsedObj.min
+            self.hour -= 1
+
 test = Time("6:00")
 
-test.add("7:15")
+test.sub("7:15")
 
 print(test.toString()) #fixed
 
