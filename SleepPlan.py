@@ -6,16 +6,6 @@ def debug(arg):
     if(debugBool):
         print("[DEBUG] {}".format(arg))
 
-
-###startTime = input("When will you go to bed?\n>>>")
-
-#startArr = startTime.split(":")
-#startHour = startArr[0]
-#startMin = startArr[1]
-###
-#debug("startHour: {} , startMin: {}".format(startHour,startMin))
-
-
 def timeElapsed(startPoint, timeToEnd): #24 hour time because it is superior
     if( not ((isinstance(startPoint, Time)) and (isinstance(timeToEnd, Time )))):
         raise Exception("Passed invalid datatypes for time")
@@ -29,9 +19,6 @@ def timeElapsed(startPoint, timeToEnd): #24 hour time because it is superior
 
     if(startPointHour > timeToEndHour):
         raise Exception("Over 24 hours")
-
-#    if(startPointHour == timeToEndHour and startPointMin >= timeToEndMin):
-#        raise Exception("Over 24 hours")
 
 
     hourDiff = abs(timeToEndHour - startPointHour)
@@ -47,21 +34,11 @@ def timeElapsed(startPoint, timeToEnd): #24 hour time because it is superior
 
     return Time(str(hourDiff) +":"+str(minDiff))
 
-#testing
-#userInA = input("Enter time 1\n>>>")
-#userInB = input("Enter time 2\n>>>")
-
-#print(timeElapsed(userInA, userInB))
-
-#need to handle cases like this:
-#5:50
-#7:40
-#I think it's fixed
-
 class Time(object):
-    #class for overloading addition
+
     min = -1
     hour = -1
+
     def __init__(self,time):
 
         if (not isinstance(time, str)):
@@ -73,7 +50,6 @@ class Time(object):
 
     def add(self, other):
 
-            #replace timeElapsed(self, other) with a named variable so it doesn't have to be recomputed
             elapsedObj = Time(other)
             self.hour += elapsedObj.hour
 
@@ -83,10 +59,6 @@ class Time(object):
             else:
                 self.min += elapsedObj.min
 
-            #return Time(str(self.hour) +":" + str(self.min))
-    def toString(self):
-        return str(self.hour) + ":" + str(self.min)
-
     def sub(self,other):
         elapsedObj = Time(other)
         self.hour -= elapsedObj.hour
@@ -95,9 +67,15 @@ class Time(object):
             self.min -= 60  - elapsedObj.min
             self.hour -= 1
 
+    def toString(self):
+        return str(self.hour) + ":" + str(self.min)
+
+
 test = Time("6:00")
 
-test.sub("7:15")
+
+for i in range(0,8):
+    test.add("1:00")
 
 print(test.toString()) #fixed
 
