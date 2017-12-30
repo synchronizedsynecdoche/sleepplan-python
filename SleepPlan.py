@@ -34,6 +34,11 @@ def timeElapsed(startPoint, timeToEnd): #24 hour time because it is superior
 
     return Time(str(hourDiff) +":"+str(minDiff))
 
+def minToTime(alpha):
+
+    return Time(str(int(alpha/60))+":"+alpha % 60)
+
+
 class Time(object):
 
     min = -1
@@ -75,7 +80,7 @@ test = Time("6:00")
 
 
 for i in range(0,8):
-    test.add("1:00")
+    test.add("")
 
 print(test.toString()) #fixed
 
