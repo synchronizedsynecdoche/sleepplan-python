@@ -78,10 +78,8 @@ class Time(object):
 
 test = Time("6:00")
 
-
-for i in range(0,8):
-    test.add("")
-
-print(test.toString()) #fixed
+alpha = input("Enter time 1:\n>>>")
+beta = input("Enter time 2:\n>>>")
+print(Time(alpha).add(beta))
 
 
